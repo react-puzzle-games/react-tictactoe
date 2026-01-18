@@ -11,26 +11,75 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid #f59e0b;
+  border-bottom: 3px solid #4ade80;
 }
 
 .header h1 {
   color: #fff;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .header-controls {
   display: flex;
   align-items: center;
+  gap: 24px;
+}
+
+.header-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.header-btn:hover {
+  color: #fff;
+}
+
+.header-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.header-info {
+  color: #9ca3af;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
   gap: 12px;
+}
+
+.header-info svg {
+  width: 16px;
+  height: 16px;
+}
+
+.score-badge {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.score-badge.x {
+  color: #60a5fa;
+}
+
+.score-badge.o {
+  color: #f87171;
 }
 
 .header-select {
   background: transparent;
   border: 1px solid #4b5563;
   color: #9ca3af;
-  padding: 6px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
   font-size: 13px;
   cursor: pointer;
@@ -50,90 +99,64 @@
 /* Main game area */
 .game-container {
   flex: 1;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-color: #e8e8e8;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.5) 10px,
+    rgba(255, 255, 255, 0.5) 20px
+  );
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+  position: relative;
 }
 
 .game {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-}
-
-/* Scoreboard */
-.scoreboard {
-  display: flex;
-  gap: 24px;
-}
-
-.score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  min-width: 80px;
-}
-
-.score-label {
-  font-size: 14px;
-  color: #9ca3af;
-  font-weight: 500;
-}
-
-.score-value {
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.x-score .score-label {
-  color: #60a5fa;
-}
-
-.o-score .score-label {
-  color: #f87171;
+  gap: 20px;
 }
 
 /* Status */
 .status {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  color: #e5e7eb;
-  padding: 8px 24px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  color: #1a1a1a;
+  padding: 8px 20px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .status.winner {
-  background: rgba(74, 222, 128, 0.2);
-  color: #4ade80;
+  background: #4ade80;
+  color: #1a1a1a;
 }
 
 .status.draw {
-  background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
+  background: #fbbf24;
+  color: #1a1a1a;
 }
 
 /* Board */
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 10px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(45, 45, 45, 0.9);
   border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .square {
   width: 90px;
   height: 90px;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #f0f0f0, #d8d8d8);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -141,64 +164,53 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  box-shadow:
+    4px 4px 8px rgba(0, 0, 0, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.8);
 }
 
 .square:hover:not(.filled) {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.02);
+  background: linear-gradient(145deg, #f8f8f8, #e8e8e8);
+  transform: scale(1.03);
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.15),
+    -3px -3px 8px rgba(255, 255, 255, 0.9);
+}
+
+.square:active:not(.filled) {
+  transform: scale(0.97);
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.1),
+    -1px -1px 3px rgba(255, 255, 255, 0.6);
+}
+
+.square.filled {
+  background: linear-gradient(145deg, #e8e8e8, #d0d0d0);
+  box-shadow:
+    inset 2px 2px 6px rgba(0, 0, 0, 0.1),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.5);
 }
 
 .square.winning {
-  background: rgba(74, 222, 128, 0.3);
-  box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+  background: linear-gradient(145deg, #86efac, #4ade80);
+  box-shadow:
+    inset 2px 2px 6px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(74, 222, 128, 0.4);
 }
 
 .mark {
   font-size: 48px;
   font-weight: 700;
   line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mark.x {
-  color: #60a5fa;
+  color: #3b82f6;
 }
 
 .mark.o {
-  color: #f87171;
-}
-
-/* Controls */
-.controls {
-  display: flex;
-  gap: 12px;
-}
-
-.btn {
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: #f59e0b;
-  color: #1a1a2e;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #9ca3af;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  box-shadow: none;
+  color: #ef4444;
 }
 
 /* Footer */
@@ -211,7 +223,7 @@
 }
 
 .footer a {
-  color: #f59e0b;
+  color: #4ade80;
   text-decoration: none;
 }
 
@@ -219,32 +231,57 @@
   text-decoration: underline;
 }
 
+.footer-github {
+  margin-bottom: 8px;
+}
+
+.footer-github a {
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.footer-github a:hover {
+  color: #fff;
+}
+
+.footer-github svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .square {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
   }
 
   .mark {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .scoreboard {
-    gap: 12px;
+    gap: 10px;
   }
 
   .score {
-    padding: 8px 16px;
-    min-width: 60px;
+    padding: 8px 14px;
+    min-width: 55px;
   }
 
   .score-value {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .header {
     flex-direction: column;
+    gap: 12px;
+  }
+
+  .header-controls {
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
   }
 }
